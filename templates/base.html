@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Йога-центр “ЙогаА”{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:300,400&display=swap" rel="stylesheet">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}" {% if request.endpoint=='index' %}class="active"{% endif %}>Главная</a>
+            <a href="{{ url_for('about') }}" {% if request.endpoint=='about' %}class="active"{% endif %}>О нас</a>
+            <a href="{{ url_for('schedule') }}" {% if request.endpoint=='schedule' %}class="active"{% endif %}>Расписание</a>
+            <a href="{{ url_for('services') }}" {% if request.endpoint=='services' %}class="active"{% endif %}>Услуги</a>
+            <a href="{{ url_for('pricing') }}" {% if request.endpoint=='pricing' %}class="active"{% endif %}>Абонементы</a>
+            <a href="{{ url_for('coaches') }}" {% if request.endpoint=='coaches' %}class="active"{% endif %}>Тренеры</a>
+            <a href="{{ url_for('blog') }}" {% if request.endpoint=='blog' %}class="active"{% endif %}>Блог</a>
+            <a href="{{ url_for('gallery') }}" {% if request.endpoint=='gallery' %}class="active"{% endif %}>Галерея</a>
+            <a href="{{ url_for('reviews') }}" {% if request.endpoint=='reviews' %}class="active"{% endif %}>Отзывы</a>
+            <a href="{{ url_for('contacts') }}" {% if request.endpoint=='contacts' %}class="active"{% endif %}>Контакты</a>
+            <span class="menu-divider"></span>
+            {% if not session.get('user_id') %}
+                <a href="{{ url_for('register') }}" {% if request.endpoint=='register' %}class="active"{% endif %}>Регистрация</a>
+                <a href="{{ url_for('login') }}" {% if request.endpoint=='login' %}class="active"{% endif %}>Вход</a>
+            {% else %}
+                <a href="{{ url_for('profile') }}" {% if request.endpoint=='profile' %}class="active"{% endif %}>Личный кабинет</a>
+                <a href="{{ url_for('logout') }}">Выход</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash">
+              {% for category, message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>© 2025 Йога-центр “ЙогаА” | Гармония тела и разума</p>
+    </footer>
+</body>
+</html>

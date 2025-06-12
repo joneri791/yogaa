@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет | ЙогаА{% endblock %}
+{% block content %}
+<h2>Личный кабинет</h2>
+<div class="profile-section">
+    <img src="{{ user.gravatar(120) }}" class="avatar" alt="Gravatar">
+    <p><b>Email:</b> {{ user.email }}</p>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <p>{{ form.first_name.label }}<br>{{ form.first_name() }}</p>
+        <p>{{ form.last_name.label }}<br>{{ form.last_name() }}</p>
+        <input type="submit" value="Сохранить профиль">
+    </form>
+</div>
+<div class="profile-section">
+    {% if user.is_subscribed %}
+        <p style="color:#6aa84f;">Подписка активна. <a href="{{ url_for('unsubscribe') }}">Отписаться</a></p>
+    {% else %}
+        <p>Нет подписки. <a href="{{ url_for('subscribe') }}">Подписаться</a></p>
+    {% endif %}
+</div>
+<div class="form-link">
+    <a href="{{ url_for('index') }}">← На главную</a>
+</div>
+{% endblock %}

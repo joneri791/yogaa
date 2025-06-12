@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Вход | ЙогаА{% endblock %}
+{% block content %}
+<div class="auth-card">
+  <h2>Вход</h2>
+  <form method="post">
+      {{ form.hidden_tag() }}
+      <p>{{ form.email.label }}<br>{{ form.email(size=32, autofocus=true) }}</p>
+      <p>{{ form.password.label }}<br>{{ form.password(size=32) }}</p>
+      <input type="submit" value="Войти">
+  </form>
+  <div class="form-link">
+      Нет аккаунта?
+      <a href="{{ url_for('register') }}">Зарегистрироваться</a> |
+      <a href="{{ url_for('index') }}">На главную</a>
+  </div>
+</div>
+{% endblock %}
